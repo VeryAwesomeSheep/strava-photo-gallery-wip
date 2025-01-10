@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strava Photo Gallery</title>
+    <link rel="icon" type="image/x-icon" href="/static/icons/favicon.ico">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/leaflet.css" />
+    <script src="/static/js/polymap.js"></script>
+    <script src="/static/js_libs/leaflet.js"></script>
+    <script src="/static/js_libs/Polyline.encoded.js"></script>
+    <script src="/static/js/dateDistanceFormatter.js"></script>
+    <style>
+    </style>
+  </head>
+  <body>
+    {% for activity in activities %}
+    <div class="activity-box">
+      <!-- First line -->
+      <div class="activity-box-first-line-content">
+        <!-- Left side part on first line (activity type icon and activity name) -->
+        <div class="activity-box-name-content">
+          <div class="activity-type-icon">
+            {% if activity.sport_type == 'Ride' %}
+            <img src="/static/icons/activity_types/Ride.svg">
+            {% elif activity.sport_type == 'WeightTraining' %}
+            <img src="/static/icons/activity_types/WeightTraining.svg">
+            {% endif %}
+          </div>
+          <div class="activity-name">
+            {{ activity.name }}
+          </div>
+        </div>
+        <!-- Right side part on first line (kudos icon and count) -->
+        <div class="activity-box-kudos-content">
+          <div class="kudos-icon">
+            <img src="/static/icons/kudos.svg">
+          </div>
+          <div class="kudos-count">
+            {{ activity.kudos_count }}
+          </div>
+        </div>
+      </div>
+      <!-- Second line (start date and distance) -->
+      <div class="activity-box-details-content">
+        <div class="start-date-icon">
+          <img src="/static/icons/start_date.svg">
+        </div>
+        <div class="start-date-time" data-date="{{ activity.start_date }}">
+          {{ activity.start_date }}
+        </div>
+        {% if activity.distance > 0 %}
+        <div class="distance-icon">
+          <img src="/static/icons/distance.svg">
+        </div>
+        <div class="distance-value" data-distance="{{ activity.distance }}">
+          {{ activity.distance }}
+        </div>
+        {% endif %}
+      </div>
+      {% if activity.polyline|length > 0 %}
+      <!-- Polymap container (left-bottom corner) -->
+      <div class="map-container" id="map-{{ loop.index }}">
+        <!-- The map will be rendered here -->
+      </div>
+      {% endif %}
+    </div>
+    {% endfor %}
+  </body>
+  <script>
+    window.activitiesData = {{ activities|tojson | safe }};
+  </script>
+</html>

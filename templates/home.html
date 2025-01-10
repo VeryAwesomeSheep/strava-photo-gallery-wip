@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strava Photo Gallery</title>
+  <link rel="icon" type="image/x-icon" href="../static/icons/favicon.ico">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: url('../static/home_photo.jpg') no-repeat center center/cover;
+      font-family: Arial, sans-serif;
+      color: white;
+      text-align: center;
+    }
+
+    .content {
+      background-color: rgba(0, 0, 0, 0.6); /* Optional: adds a semi-transparent overlay */
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    h1 {
+      font-size: 5rem;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+  </style>
+</head>
+<body>
+  <div class="content">
+    <h1>Strava Photo Gallery</h1>
+    <p>A place where you can see all your photos uploaded to Strava in a neatly organised manner. <br>No more going through "My Activities" just to find that old ride with a photo, because Strava will show only 100 latest photos on the profile.</p>
+    <p><a class="btn btn-lg" href="/login" role="button"><img src="../static/ConnectWithStrava.png" border="0" width="262" height="43" /></a></p>
+  </div>
+</body>
+</html>

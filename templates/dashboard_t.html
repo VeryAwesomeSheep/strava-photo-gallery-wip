@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strava Photo Gallery</title>
+  <link rel="icon" type="image/x-icon" href="../static/favicon.ico">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+      color: white;
+      text-align: center;
+    }
+
+    .content {
+      background-color: rgba(0, 0, 0, 0.6); /* Optional: adds a semi-transparent overlay */
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    h1 {
+      font-size: 5rem;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 1.2rem;
+      margin-bottom: 30px;
+    }
+    </style>
+</head>
+<body>
+  <div class="content">
+    <h1>Sucesfully logged in</h1>
+    <p>
+      Hi, <strong>{{ athlete.firstname }}</strong>.
+
+      Now that you are logged in we can access your public activities and display everything for you!<br>
+      To proceed press "Download activities data" button and we will start gathering and preparing the data for you.<br><br>
+      To avoid unnecessary Strava API requests, we will save all the necessary data needed for the operation of this website for 30 days since you last used this website. After this time everything will be removed. I don't need this data for anything, but if you want to come back and interact with the site more, we won't need to get this data again.
+    </p>
+</div>
+</body>
+</html>
+

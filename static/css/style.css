@@ -1,0 +1,112 @@
+body {
+  display: flex;
+  flex-direction: column; /* Stack the boxes vertically */
+  justify-content: flex-start;
+  align-items: center;
+  min-height: 100vh;
+  margin: 0;
+  background-color: #f0f0f0;
+}
+
+/* Box for each activity */
+.activity-box {
+  width: 85vw; /* 85% of the viewport width */
+  height: 50vh; /* 50% of the viewport height */
+  background-color: #4CAF50;
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Nice shadow effect */
+  color: white;
+  font-family: Arial, sans-serif;
+  font-size: 1.5rem;
+  text-align: left;
+  margin: 10px 0;
+  padding: 20px;
+  position: relative;
+}
+
+/* Responsive activity box */
+@media (max-width: 768px) {
+  .activity-box {
+    height: 70vh; /* Taller for smaller screens */
+  }
+}
+
+/* First line */
+.activity-box-first-line-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+/* Left side part on first line (activity type icon and activity name) */
+.activity-box-name-content {
+  display: flex;
+  align-items: center;
+}
+
+.activity-type-icon {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.activity-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Right side part on first line (kudos icon and count) */
+.activity-box-kudos-content {
+  display: flex;
+  align-items: center;
+}
+
+.kudos-icon {
+  width: 50px;
+  height: 50px;
+  margin-left: 10px;
+}
+
+.kudos-count {
+  margin-left: 5px;
+  font-size: 1.5rem;
+}
+
+/* Second line (start date and distance) */
+.activity-box-details-content {
+  display: flex;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.activity-box-details-content .start-date-icon,
+.activity-box-details-content .start-date-time,
+.activity-box-details-content .distance-icon,
+.activity-box-details-content .distance-value {
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+}
+
+.start-date-icon, .distance-icon {
+  width: 50px;
+  height: 50px;
+}
+
+.start-date-time, .distance-value {
+  font-size: 1.2rem;
+}
+
+/* Polyline box in left bottom */
+.map-container {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  width: 150px;
+  height: 150px;
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
