@@ -1,3 +1,4 @@
 .vscode
 .pytest-cache
 settings.cfg
+athletes/
