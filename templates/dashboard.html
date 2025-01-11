@@ -1,74 +1,108 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Strava Photo Gallery</title>
-    <link rel="icon" type="image/x-icon" href="/static/icons/favicon.ico">
-    <link rel="stylesheet" href="/static/css/style.css">
-    <link rel="stylesheet" href="/static/css/leaflet.css" />
-    <script src="/static/js/polymap.js"></script>
-    <script src="/static/js_libs/leaflet.js"></script>
-    <script src="/static/js_libs/Polyline.encoded.js"></script>
-    <script src="/static/js/dateDistanceFormatter.js"></script>
-    <style>
-    </style>
-  </head>
-  <body>
-    {% for activity in activities %}
-    <div class="activity-box">
-      <!-- First line -->
-      <div class="activity-box-first-line-content">
-        <!-- Left side part on first line (activity type icon and activity name) -->
-        <div class="activity-box-name-content">
-          <div class="activity-type-icon">
-            {% if activity.sport_type == 'Ride' %}
-            <img src="/static/icons/activity_types/Ride.svg">
-            {% elif activity.sport_type == 'WeightTraining' %}
-            <img src="/static/icons/activity_types/WeightTraining.svg">
-            {% endif %}
-          </div>
-          <div class="activity-name">
-            {{ activity.name }}
-          </div>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Strava Photo Gallery</title>
+  <link rel="icon" type="image/x-icon" href="/static/icons/favicon.ico">
+  <script src="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.js"></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <script src="https://unpkg.com/@mapbox/polyline@1.2.1"></script>
+  <script src="/static/js/Polyline.encoded.js"></script>
+  <script src="/static/js/polymap.js"></script>
+  <script src="/static/js/dateDistanceTimeFormatter.js"></script>
+  <script src="/static/js/photoGallery.js"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper/swiper-bundle.min.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+  <link rel="stylesheet" href="/static/css/style.css">
+  <style>
+  </style>
+</head>
+
+<body>
+  {% for activity in activities %}
+  <div class="activity-box">
+    <!-- First line -->
+    <div class="activity-box-first-line-content">
+      <!-- Left side part on first line (activity type icon and activity name) -->
+      <div class="activity-box-name-content">
+        <div class="activity-type-icon">
+          {% if activity.sport_type == 'Ride' %}
+          <img src="/static/icons/activity_types/Ride.svg">
+          {% elif activity.sport_type == 'WeightTraining' %}
+          <img src="/static/icons/activity_types/WeightTraining.svg">
+          {% endif %}
         </div>
-        <!-- Right side part on first line (kudos icon and count) -->
-        <div class="activity-box-kudos-content">
-          <div class="kudos-icon">
-            <img src="/static/icons/kudos.svg">
-          </div>
-          <div class="kudos-count">
-            {{ activity.kudos_count }}
-          </div>
+        <div class="activity-name">
+          <a href="https://www.strava.com/activities/{{ activity.id }}" target="_blank">{{ activity.name }}</a>
         </div>
       </div>
-      <!-- Second line (start date and distance) -->
-      <div class="activity-box-details-content">
-        <div class="start-date-icon">
-          <img src="/static/icons/start_date.svg">
+      <!-- Right side part on first line (kudos icon and count) -->
+      <div class="activity-box-kudos-content">
+        <div class="kudos-icon">
+          <img src="/static/icons/kudos.svg">
         </div>
-        <div class="start-date-time" data-date="{{ activity.start_date }}">
-          {{ activity.start_date }}
+        <div class="kudos-value">
+          {{ activity.kudos_count }}
         </div>
-        {% if activity.distance > 0 %}
-        <div class="distance-icon">
-          <img src="/static/icons/distance.svg">
-        </div>
-        <div class="distance-value" data-distance="{{ activity.distance }}">
-          {{ activity.distance }}
-        </div>
-        {% endif %}
       </div>
+    </div>
+    <!-- Second line (start date and distance) -->
+    <div class="activity-box-details-content">
+      <div class="start-date-icon">
+        <img src="/static/icons/calendar.svg">
+      </div>
+      <div class="start-date-value" data-date="{{ activity.start_date }}">
+        {{ activity.start_date }}
+      </div>
+      {% if activity.distance > 0 %}
+      <div class="distance-icon">
+        <img src="/static/icons/distance.svg">
+      </div>
+      <div class="distance-value" data-distance="{{ activity.distance }}">
+        {{ activity.distance }}
+      </div>
+      {% endif %}
+      <div class="moving-time-icon">
+        <img src="/static/icons/clock.svg">
+      </div>
+      <div class="moving-time-value" data-time="{{ activity.moving_time }}">
+        {{ activity.moving_time }}
+      </div>
+    </div>
+    <div class="activity-box-bottom">
       {% if activity.polyline|length > 0 %}
       <!-- Polymap container (left-bottom corner) -->
       <div class="map-container" id="map-{{ loop.index }}">
-        <!-- The map will be rendered here -->
       </div>
       {% endif %}
+      <!-- Photo Carousel -->
+      <div class="photo-carousel">
+        {% if activity.photos|length > 0 %}
+        <div class="swiper">
+          <div class="swiper-wrapper">
+            {% for photo in activity.photos %}
+            <div class="swiper-slide">
+              <img src="{{ photo }}" alt="Activity photo">
+            </div>
+            {% endfor %}
+          </div>
+          <!-- Navigation buttons -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+          <div class="swiper-pagination"></div>
+        </div>
+        {% else %}
+        <p class="no-photos">No photos available</p>
+        {% endif %}
+      </div>
     </div>
-    {% endfor %}
-  </body>
-  <script>
-    window.activitiesData = {{ activities|tojson | safe }};
-  </script>
+  </div>
+  {% endfor %}
+</body>
+<script>
+  window.activitiesData = {{ activities | tojson | safe }};
+</script>
+
 </html>

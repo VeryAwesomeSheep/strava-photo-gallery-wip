@@ -5,17 +5,17 @@ body {
   align-items: center;
   min-height: 100vh;
   margin: 0;
-  background-color: #f0f0f0;
+  background-color: whitesmoke;
 }
 
 /* Box for each activity */
 .activity-box {
   width: 85vw; /* 85% of the viewport width */
-  height: 50vh; /* 50% of the viewport height */
-  background-color: #4CAF50;
+  height: 40vh; /* 50% of the viewport height */
+  background-color: white;
   border-radius: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Nice shadow effect */
-  color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  color: black;
   font-family: Arial, sans-serif;
   font-size: 1.5rem;
   text-align: left;
@@ -47,14 +47,20 @@ body {
 }
 
 .activity-type-icon {
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   margin-right: 10px;
+  margin-top: 5px;
 }
 
 .activity-name {
   font-size: 1.5rem;
   font-weight: bold;
+}
+
+.activity-name a {
+  color: inherit;
+  text-decoration: none;
 }
 
 /* Right side part on first line (kudos icon and count) */
@@ -64,12 +70,12 @@ body {
 }
 
 .kudos-icon {
-  width: 50px;
-  height: 50px;
+  width: 30px;
+  height: 30px;
   margin-left: 10px;
 }
 
-.kudos-count {
+.kudos-value {
   margin-left: 5px;
   font-size: 1.5rem;
 }
@@ -82,31 +88,104 @@ body {
 }
 
 .activity-box-details-content .start-date-icon,
-.activity-box-details-content .start-date-time,
+.activity-box-details-content .start-date-value,
 .activity-box-details-content .distance-icon,
-.activity-box-details-content .distance-value {
+.activity-box-details-content .distance-value,
+.activity-box-details-content .moving-time-icon,
+.activity-box-details-content .moving-time-value {
   display: inline-block;
   vertical-align: middle;
   margin-right: 10px;
 }
 
-.start-date-icon, .distance-icon {
-  width: 50px;
-  height: 50px;
+.start-date-icon,
+.distance-icon,
+.moving-time-icon {
+  width: 30px;
+  height: 30px;
 }
 
-.start-date-time, .distance-value {
+.start-date-value,
+.distance-value,
+.moving-time-value {
   font-size: 1.2rem;
 }
 
-/* Polyline box in left bottom */
+/* Bottom section layout */
+.activity-box-bottom {
+  display: flex;
+  width: 100%;
+  margin-top: 50px;
+  height: 60%; /* Adjust height as needed */
+}
+
+/* Polyline box */
 .map-container {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  width: 150px;
-  height: 150px;
+  flex: 1; /* 1/4 of the space */
+  max-width: 25%; /* Explicitly limit width to 25% */
+  height: 100%; /* Full height of the bottom section */
   background-color: white;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Photo gallery */
+.photo-carousel {
+  flex: 3; /* 3/4 of the space */
+  max-width: 75%; /* Explicitly limit width to 75% */
+  height: 100%; /* Full height of the bottom section */
+  margin-left: 10px; /* Add some spacing between map and gallery */
+  overflow: hidden;
+  position: relative;
+}
+
+.swiper {
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: dimgray; /* Default button color */
+}
+
+.swiper-button-next:hover,
+.swiper-button-prev:hover {
+  opacity: 1; /* Full opacity on hover */
+  color: red; /* Highlight color on hover */
+}
+
+.swiper-pagination {
+  color: white; /* Change text or bullet color */
+  font-size: 1rem;
+  position: absolute;
+  bottom: 10px; /* Adjust position */
+  right: 10px; /* Align to the right */
+}
+
+.swiper-pagination-bullet {
+  background: dimgray; /* For 'bullets' type */
+  opacity: 0.7;
+}
+
+.swiper-pagination-bullet-active {
+  background: red; /* Highlight active bullet */
+  opacity: 1;
+}
+
+.no-photos {
+  color: dimgray;
 }
